@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A clear, visual explanation of static websites, dynamic websites, Cloudflare hosting and live data through Supabase.">
+  <title>Static Files. Dynamic Experiences. | A Visual Guide</title>
+  <style>
+    :root {
+      --ink: #18322e;
+      --ink-soft: #455d56;
+      --muted: #6e817b;
+      --green: #155c4c;
+      --green-2: #20816d;
+      --mint: #d8eee4;
+      --mint-soft: #eef6f0;
+      --cream: #f7f7f0;
+      --paper: #fffefa;
+      --line: #dce5dc;
+      --blue: #dce8f4;
+      --orange: #f4ca98;
+      --shadow: 0 18px 50px rgba(25,53,44,.075);
+      --radius: 24px;
+      --container: 1160px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    ::selection { background: #adddce; color: #173b31; }
+    a { color: inherit; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid #eea94f; outline-offset: 4px; }
+    .wrap { width: min(calc(100% - 48px), var(--container)); margin: 0 auto; }
+    .mini-icon { width: 20px; height: 20px; display: inline-block; vertical-align: middle; stroke: currentColor; stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .site-header { position: relative; z-index: 10; border-bottom: 1px solid rgba(24,50,46,.09); }
+    .nav { height: 80px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration:none; font-size: 13px; font-weight: 800; letter-spacing: .095em; text-transform: uppercase; }
+    .brand-mark { width: 30px; height: 30px; display:grid; grid-template-columns:1fr 1fr; gap:3px; transform: rotate(-12deg); }
+    .brand-mark span { background:#185d4e; border-radius: 3px; }
+    .brand-mark span:nth-child(2) { background:#b9d6ca; }
+    .brand-mark span:nth-child(3) { background:#eaba80; }
+    .brand-mark span:nth-child(4) { background:#6b9d88; }
+    .nav-links { display:flex; gap: 29px; align-items:center; }
+    .nav-links a { font-size: 13px; color: var(--ink-soft); text-decoration:none; font-weight: 650; transition: color .2s; }
+    .nav-links a:hover { color:var(--green-2); }
+    .nav-links .nav-cta { background: var(--green); color:white; padding:12px 18px; border-radius:30px; }
+    .nav-links .nav-cta:hover { color:white; background:#0f493d; }
+    .hero { padding: 88px 0 95px; position: relative; overflow:hidden; }
+    .hero::before { content:""; position:absolute; width:850px; height:850px; border-radius:50%; right:-390px; top:-270px; pointer-events:none; background:radial-gradient(circle,#dbeee2 0%,rgba(218,239,226,.55) 44%,rgba(218,239,226,0) 70%); }
+    .hero-inner { display:grid; grid-template-columns:1.06fr .94fr; gap:54px; align-items:center; position:relative; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--green); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    .eyebrow::before { content:""; width:19px; height:2px; background:#b88e55; }
+    .hero h1, .section-heading, .final-heading { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing:-.055em; }
+    .hero h1 { font-size:clamp(58px,6.5vw,94px); line-height:1.015; margin:28px 0 26px; }
+    .hero h1 em { font-style:italic; color:var(--green-2); }
+    .hero-lead { max-width:535px; font-size:20px; line-height:1.65; color:var(--ink-soft); margin:0 0 30px; }
+    .hero-lead strong { color:var(--ink); }
+    .hero-actions { display:flex; align-items:center; gap:17px; flex-wrap:wrap; }
+    .btn { border-radius:999px; display:inline-flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; font-weight:750; font-size:14px; padding:15px 21px; text-decoration:none; border: 1px solid transparent; transition:transform .2s, background .2s, box-shadow .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background:var(--green); color:white; box-shadow:0 8px 19px rgba(21,92,76,.18); }
+    .btn-primary:hover { background:#114b3e; }
+    .btn-light { background:transparent; border-color:#b7c9be; color:var(--ink); }
+    .btn-light:hover { background:white; }
+    .hero-small { display:flex; align-items:center; gap:9px; margin-top:32px; font-size:13px; color:var(--muted); }
+    .hero-small .tick { width:21px; height:21px; background:#d3e9d9; color:var(--green); display:grid; place-items:center; border-radius:50%; font-size:13px; font-weight:900; }
+    .hero-visual { min-height:440px; position:relative; display:flex; align-items:center; justify-content:center; }
+    .orbit { position:absolute; border-radius:50%; border:1px solid rgba(37,113,88,.17); width:540px; height:540px; transform:rotate(-17deg); }
+    .orbit.orbit-small { width:405px; height:405px; border-style:dashed; border-color:rgba(37,113,88,.2); }
+    .float-tag { position:absolute; z-index:2; background:#fffefa; box-shadow:0 10px 30px rgba(37,71,57,.11); border:1px solid rgba(23,83,67,.1); border-radius:13px; padding:11px 15px; display:flex; gap:9px; align-items:center; font-size:12px; font-weight:750; }
+    .float-tag.one { top:36px; right:3px; transform:rotate(7deg); }
+    .float-tag.two { bottom:30px; left:-25px; transform:rotate(-6deg); }
+    .float-dot { width:9px; height:9px; background:#56aa84; border-radius:50%; box-shadow:0 0 0 4px #e7f4ed; }
+    .browser-art { position:relative; width:min(100%,490px); border:1px solid #d5e1d7; background:white; border-radius:19px; box-shadow: 0 28px 65px rgba(28,63,50,.17); overflow:hidden; transform: rotate(-3deg); }
+    .browser-top { height:48px; border-bottom:1px solid #e9eeea; display:flex; align-items:center; gap:12px; padding:0 17px; }
+    .dots { display:flex; gap:5px; } .dots span { width:8px; height:8px; background:#e6b5a9; border-radius:50%; } .dots span:nth-child(2) { background:#f0d596; } .dots span:nth-child(3) { background:#a8d5c3; }
+    .address { background:#f4f7f3; color:#83908b; font-size:10px; letter-spacing:.01em; padding:7px 13px; border-radius:7px; width:63%; text-align:center; margin:0 auto; }
+    .browser-body { padding:28px 28px 27px; }
+    .browser-kicker { display:flex; align-items:center; gap:7px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; font-size:10px; color:#70948a; }
+    .browser-kicker:before { content:""; width:8px; height:8px; background:#71b59d; border-radius:50%; }
+    .browser-headline { margin:12px 0 11px; font-family:Georgia,serif; font-size:31px; line-height:1.15; letter-spacing:-.04em; }
+    .browser-copy { height:7px; border-radius:10px; background:#e5ece5; margin-top:9px; width:90%; }
+    .browser-copy.short { width:65%; }
+    .bar-chart { display:flex; align-items:end; gap:10px; height:114px; padding-top:21px; margin:14px 0 14px; border-bottom:1px solid #e4eee7; }
+    .bar-chart span { flex:1; border-radius:8px 8px 0 0; background:#b6d9ca; height:var(--h); }
+    .bar-chart span:nth-child(2n) { background:#98cab5; }
+    .bar-chart span:nth-child(5) { background:var(--green-2); }
+    .browser-footer { display:flex; align-items:center; justify-content:space-between; font-size:10px; color:#6b8578; font-weight:650; }
+    .mini-pill { border-radius:999px; padding:7px 10px; background:#e2f1e8; color:#26735d; }
+    .file-chip { position:absolute; right:-14px; bottom:20px; display:flex; gap:8px; z-index:3; }
+    .file-chip span { color:var(--green); font-weight:850; font-size:11px; box-shadow:0 7px 16px rgba(19,72,54,.13); padding:10px 12px; background:white; border:1px solid #dfeae2; border-radius:9px; }
+    .idea-strip { border-block:1px solid var(--line); background:rgba(255,255,255,.5); }
+    .idea-grid { display:grid; grid-template-columns:repeat(3,1fr); padding:31px 0; gap:0; }
+    .idea { padding:4px 28px; display:flex; align-items:center; gap:17px; }
+    .idea:first-child { padding-left:0; } .idea:not(:last-child) { border-right:1px solid #dce7df; }
+    .idea-num { font-family:Georgia,serif; font-size:31px; color:#91b7a8; }
+    .idea h3 { font-size:14px; margin:0 0 3px; } .idea p { color:var(--muted); font-size:12px; margin:0; line-height:1.5; }
+    .section { padding:113px 0; }
+    .section-top { max-width:750px; margin-bottom:47px; }
+    .section-heading { font-size:clamp(42px,5vw,65px); line-height:1.1; margin:21px 0 19px; }
+    .section-intro { font-size:18px; line-height:1.7; color:var(--ink-soft); max-width:710px; margin:0; }
+    .callout { border-left:3px solid #d4a86a; padding: 14px 0 14px 23px; margin:42px 0 0; color:#2c5447; font-size:20px; line-height:1.55; font-weight:650; max-width:800px; }
+    .comparison { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .compare-card { background:#fffefa; border:1px solid #dde7df; padding:35px; border-radius:var(--radius); min-height:450px; position:relative; overflow:hidden; box-shadow:var(--shadow); }
+    .compare-card.dynamic { background:#ecf0ef; border-color:#d8e0de; }
+    .compare-badge { text-transform:uppercase; letter-spacing:.11em; font-size:11px; font-weight:850; color:var(--green); }
+    .compare-card.dynamic .compare-badge { color:#627376; }
+    .compare-card h3 { font-family:Georgia,serif; font-weight:400; font-size:35px; letter-spacing:-.035em; margin:15px 0 8px; }
+    .compare-card p { color:var(--ink-soft); line-height:1.62; margin:0; font-size:15px; max-width:425px; }
+    .compare-flow { display:flex; justify-content:space-between; align-items:center; gap:6px; margin:34px 0 29px; }
+    .compare-node { min-width:0; flex:1; background:#e7f3e9; min-height:97px; display:flex; justify-content:center; align-items:center; gap:10px; flex-direction:column; border-radius:14px; border:1px solid #cfe2d4; text-align:center; padding:9px 5px; }
+    .dynamic .compare-node { background:#e4eaeb; border-color:#d2dcdb; }
+    .compare-node svg { width:27px; height:27px; color:var(--green); stroke:currentColor; stroke-width:1.5; fill:none; }
+    .compare-node span { font-size:11px; font-weight:750; }
+    .flow-arrow { flex:0 0 28px; height:2px; background:#9ebaad; position:relative; }
+    .flow-arrow:after { content:""; position:absolute; border-right:2px solid #9ebaad; border-top:2px solid #9ebaad; width:8px; height:8px; transform:rotate(45deg); right:0; top:-3px; }
+    .compare-point { display:flex; align-items:flex-start; gap:12px; padding-top:19px; border-top:1px solid #e3ebe4; font-size:14px; line-height:1.55; color:var(--ink-soft); }
+    .compare-point svg { color:var(--green-2); margin-top:1px; flex:0 0 18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; }
+    .dynamic .compare-point { border-top-color:#d5dfdd; }
+    .comparison-footer { display:flex; align-items:start; gap:12px; margin-top:25px; font-size:15px; line-height:1.65; color:var(--ink-soft); background:#e9eee7; padding:20px 24px; border-radius:13px; }
+    .comparison-footer svg { width:21px; height:21px; flex:0 0 21px; stroke:var(--green); fill:none; stroke-width:2; margin-top:2px; }
+    .dark-section { color:#eff8f1; padding:111px 0 107px; background: #143d33; position:relative; overflow:hidden; }
+    .dark-section:before { content:""; position:absolute; inset:0; opacity:.20; pointer-events:none; background-image:radial-gradient(#88b29f .8px, transparent .8px); background-size:26px 26px; mask-image:linear-gradient(90deg,transparent,black); }
+    .dark-section .wrap { position:relative; }
+    .dark-section .eyebrow { color:#aadbc5; }
+    .dark-section .section-heading { max-width:830px; }
+    .dark-section .section-intro { color:#c0d7cb; }
+    .architecture { background:#f8fcf8; color:var(--ink); border-radius:26px; margin-top:48px; padding:38px 31px 33px; box-shadow:0 24px 65px rgba(0,0,0,.16); }
+    .diagram-title { color:#5e786c; font-size:11px; font-weight:850; text-transform:uppercase; letter-spacing:.11em; margin-bottom:31px; display:flex; align-items:center; justify-content:space-between; gap:15px; }
+    .diagram-note { font-size:11px; background:#e7f1e8; color:var(--green); border-radius:20px; padding:7px 11px; font-weight:750; letter-spacing:0; text-transform:none; }
+    .diagram-main { display:grid; grid-template-columns:1fr 120px 1fr 120px 1fr; align-items:center; gap:0; }
+    .diagram-node { height:196px; border:1px solid #dce9e1; border-radius:18px; background:white; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:19px 15px; text-align:center; }
+    .diagram-node.cloudflare { background:#ecf5ec; border-color:#d9e9d9; }
+    .diagram-node.supabase { background:#f3f1e9; border-color:#e7e2cf; }
+    .diagram-icon { display:grid; place-items:center; width:58px; height:58px; border-radius:15px; background:#eaf5ee; margin-bottom:14px; }
+    .diagram-icon svg { width:31px; height:31px; stroke:#287761; stroke-width:1.7; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .cloudflare .diagram-icon { background:#d7e8d9; }
+    .supabase .diagram-icon { background:#f0e4c9; }
+    .supabase .diagram-icon svg { stroke:#97753f; }
+    .diagram-node strong { font-size:18px; margin-bottom:6px; }
+    .diagram-node small { color:#657e72; line-height:1.45; font-size:12px; }
+    .diagram-link { text-align:center; position:relative; min-width:0; }
+    .diagram-link small { display:block; color:#5a7b6a; font-size:11px; font-weight:800; margin-bottom:13px; }
+    .connector-line { height:2px; width:82%; margin:auto; background:#60a488; position:relative; }
+    .connector-line:after { position:absolute; content:""; width:9px; height:9px; border-top:2px solid #60a488; border-right:2px solid #60a488; transform:rotate(45deg); right:-1px; top:-4px; }
+    .diagram-link.both .connector-line:before { position:absolute; content:""; width:9px; height:9px; border-left:2px solid #60a488; border-bottom:2px solid #60a488; transform:rotate(45deg); left:-1px; top:-4px; }
+    .architecture-caption { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-top:28px; padding-top:24px; border-top:1px solid #e4ebe5; }
+    .cap-item { display:flex; gap:11px; align-items:flex-start; color:#637e70; font-size:12px; line-height:1.6; }
+    .cap-index { color:#237861; font-weight:850; }
+    .dark-conclusion { display:flex; align-items:flex-start; gap:14px; max-width:830px; margin:25px 0 0; line-height:1.65; font-size:15px; color:#d5e9dd; }
+    .dark-conclusion svg { color:#92e1b7; stroke:currentColor; stroke-width:2; fill:none; flex:0 0 20px; margin-top:2px; }
+    .demo-section { padding:113px 0; }
+    .demo-layout { display:grid; grid-template-columns:.95fr 1.05fr; align-items:center; gap:86px; }
+    .demo-layout .section-heading { margin-bottom:23px; }
+    .demo-layout p { color:var(--ink-soft); font-size:17px; line-height:1.75; }
+    .demo-note { color:var(--muted); margin-top:30px; font-size:13px; line-height:1.6; max-width:395px; }
+    .demo-note strong { color:#3b6855; }
+    .demo-card { background:white; border:1px solid #deeadf; padding:28px; border-radius:23px; box-shadow:0 24px 70px rgba(16,71,50,.09); }
+    .demo-header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:31px; }
+    .demo-header .small-title { text-transform:uppercase; letter-spacing:.12em; font-size:11px; color:#6d8b7b; font-weight:850; }
+    .demo-status { display:inline-flex; gap:7px; align-items:center; background:#eaf6ec; color:#236f51; font-size:11px; font-weight:750; border-radius:20px; padding:8px 10px; }
+    .demo-status::before { content:""; width:7px; height:7px; background:#379f72; border-radius:50%; }
+    .demo-number { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+    .demo-number strong { font-size:57px; letter-spacing:-.07em; font-weight:750; line-height:1; }
+    .demo-number span { font-size:15px; color:var(--muted); font-weight:600; }
+    .demo-subtitle { font-size:14px; color:#60766b; margin:9px 0 29px; }
+    .progress-track { width:100%; height:15px; border-radius:99px; background:#e7eee8; overflow:hidden; margin:0 0 10px; }
+    .progress-fill { width:60%; height:100%; border-radius:99px; background:linear-gradient(90deg,#84bca4,#20775e); transition:width .4s cubic-bezier(.2,.7,.2,1); }
+    .progress-labels { display:flex; justify-content:space-between; align-items:center; color:#6f877b; font-size:12px; font-weight:700; margin-bottom:30px; }
+    .progress-labels #percentage { color:var(--green); font-size:14px; }
+    .demo-buttons { display:flex; gap:10px; }
+    .demo-buttons button { border:none; border-radius:11px; padding:14px 16px; font-size:13px; font-weight:800; cursor:pointer; transition:transform .2s,background .2s; }
+    .demo-buttons button:hover { transform:translateY(-1px); }
+    #addVisit { flex:1; background:var(--green); color:white; }
+    #addVisit:hover { background:#0e4b3d; }
+    #addVisit:disabled { background:#6a9e8c; cursor:default; }
+    #resetVisits { background:#edf3ee; color:var(--ink-soft); }
+    #resetVisits:hover { background:#e0ebe3; }
+    .demo-explainer { border-top:1px solid #e8eee9; padding-top:18px; margin-top:24px; display:flex; gap:9px; align-items:flex-start; color:#678171; font-size:12px; line-height:1.6; }
+    .demo-explainer svg { flex:0 0 18px; height:18px; width:18px; stroke:currentColor; stroke-width:1.8; fill:none; margin-top:1px; }
+    .deployment { background:#f0f2e9; padding:103px 0 108px; }
+    .deployment .section-top { margin-bottom:35px; }
+    .deploy-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .deploy-step { background:#fffefa; border:1px solid #e1e7db; border-radius:18px; padding:29px; min-height:231px; }
+    .step-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:25px; }
+    .step-num { color:#8eae9b; font-family:Georgia,serif; font-size:35px; line-height:1; }
+    .step-icon { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:#e4efe7; color:var(--green); }
+    .step-icon svg { width:22px; height:22px; stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .deploy-step h3 { font-size:18px; margin:0 0 11px; }
+    .deploy-step p { color:var(--ink-soft); font-size:14px; line-height:1.7; margin:0; }
+    .deploy-step code { background:#edf3e9; color:#235f4c; font-size:12px; padding:2px 5px; border-radius:4px; }
+    .deploy-note { display:flex; gap:12px; align-items:center; background:#e1eade; color:#365d4c; padding:18px 21px; margin-top:21px; border-radius:13px; font-size:14px; line-height:1.6; }
+    .deploy-note svg { width:22px; height:22px; flex:0 0 22px; stroke:currentColor; fill:none; stroke-width:1.75; }
+    .questions { padding:104px 0 107px; }
+    .faq-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:85px; }
+    .faq-grid .section-heading { font-size:clamp(40px,4vw,57px); }
+    .faq-list { border-top:1px solid #cfded3; }
+    .faq-list details { border-bottom:1px solid #cfded3; }
+    .faq-list summary { cursor:pointer; list-style:none; font-weight:700; font-size:16px; padding:24px 37px 24px 0; position:relative; }
+    .faq-list summary::-webkit-details-marker { display:none; }
+    .faq-list summary::after { content:"+"; font-size:25px; font-weight:400; color:var(--green); position:absolute; right:4px; top:19px; }
+    .faq-list details[open] summary::after { content:"−"; }
+    .faq-list details p { margin:0 0 24px; color:var(--ink-soft); line-height:1.72; font-size:14px; }
+    .final { background:#143d33; color:white; padding:73px 0 77px; }
+    .final-inner { display:flex; justify-content:space-between; align-items:center; gap:40px; }
+    .final-kicker { font-size:12px; text-transform:uppercase; font-weight:800; letter-spacing:.13em; color:#a9d9ba; }
+    .final-heading { font-size:clamp(37px,4.5vw,59px); line-height:1.12; margin:13px 0 0; }
+    .final-heading em { color:#c9e6be; }
+    .final .btn { background:white; color:var(--green); white-space:nowrap; }
+    .final .btn:hover { background:#e8f4e9; }
+    .footer { background:#0e2f27; color:#aac5b6; padding:25px 0; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; font-size:12px; }
+    .footer strong { color:#e6f2e7; }
+    @media (max-width: 1050px) {
+      .hero-inner { gap:25px; }
+      .hero h1 { font-size:clamp(56px,7vw,81px); }
+      .demo-layout { gap:35px; }
+      .diagram-main { grid-template-columns:1fr 80px 1fr 80px 1fr; }
+      .architecture { padding-inline:20px; }
+      .float-tag.two { left:0; }
+    }
+    @media (max-width: 800px) {
+      .nav-links { gap:16px; }
+      .nav-links a:not(.nav-cta) { display:none; }
+      .hero { padding:65px 0 65px; }
+      .hero-inner { grid-template-columns:1fr; gap:24px; }
+      .hero-copy { max-width:680px; }
+      .hero h1 { font-size:clamp(58px,10vw,90px); }
+      .hero-visual { min-height:370px; margin-inline:25px; }
+      .browser-art { width:min(100%,470px); }
+      .orbit { width:440px; height:440px; } .orbit.orbit-small { width:340px; height:340px; }
+      .idea-grid { grid-template-columns:1fr; padding:12px 0; }
+      .idea { padding:18px 0; }
+      .idea:not(:last-child) { border-right:none; border-bottom:1px solid #dce7df; }
+      .section, .demo-section, .questions { padding:77px 0; }
+      .comparison { grid-template-columns:1fr; }
+      .compare-card { min-height:0; }
+      .dark-section { padding:81px 0; }
+      .diagram-main { grid-template-columns:1fr; gap:0; }
+      .diagram-node { height:auto; padding:21px; }
+      .diagram-link { padding:21px 0 18px; }
+      .diagram-link small { margin-bottom:0; }
+      .diagram-link .connector-line { height:37px; width:2px; margin:10px auto 0; }
+      .diagram-link .connector-line:after { right:-4px; top:auto; bottom:0; transform:rotate(135deg); }
+      .diagram-link.both .connector-line:before { left:-4px; top:0; transform:rotate(135deg); }
+      .architecture-caption { grid-template-columns:1fr; gap:11px; }
+      .demo-layout, .faq-grid { grid-template-columns:1fr; gap:33px; }
+      .demo-card { max-width:570px; width:100%; }
+      .deploy-steps { grid-template-columns:1fr; }
+      .deploy-step { min-height:0; }
+      .deployment { padding:80px 0; }
+      .final-inner { align-items:flex-start; flex-direction:column; }
+    }
+    @media (max-width:500px) {
+      .wrap { width:min(calc(100% - 36px),var(--container)); }
+      .nav { height:68px; }
+      .brand { font-size:11px; gap:8px; }
+      .brand-mark { width:25px; height:25px; }
+      .nav-links .nav-cta { padding:10px 12px; font-size:12px; }
+      .hero { padding-top:55px; }
+      .hero h1 { font-size:clamp(48px,12vw,65px); margin:24px 0 19px; }
+      .hero-lead { font-size:17px; }
+      .hero-actions .btn { font-size:13px; padding:13px 15px; }
+      .hero-visual { margin:0 8px; min-height:330px; }
+      .float-tag { font-size:10px; padding:8px 10px; }
+      .float-tag.one { top:4px; right:-9px; }
+      .float-tag.two { bottom:0; left:-9px; }
+      .browser-body { padding:22px; }
+      .browser-headline { font-size:25px; }
+      .browser-art { transform:rotate(-2deg); }
+      .file-chip { right:-3px; bottom:30px; }
+      .file-chip span { font-size:9px; padding:8px; }
+      .section-heading { font-size:40px; }
+      .section-intro { font-size:16px; }
+      .compare-card { padding:24px; }
+      .compare-card h3 { font-size:30px; }
+      .compare-node { min-height:87px; }
+      .compare-node span { font-size:10px; }
+      .flow-arrow { flex-basis:15px; }
+      .architecture { padding:24px 18px; }
+      .diagram-title { align-items:flex-start; }
+      .diagram-note { font-size:10px; }
+      .callout { font-size:17px; }
+      .demo-card { padding:21px; }
+      .demo-number strong { font-size:50px; }
+      .footer-inner { flex-direction:column; align-items:flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden">
+    <symbol id="i-monitor" viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="17" rx="2.7"/><path d="M12 27h8M16 22v5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 32 32"><rect x="5" y="5" width="22" height="10" rx="2.5"/><rect x="5" y="18" width="22" height="10" rx="2.5"/><path d="M10 10h.01M10 23h.01M15 10h8M15 23h8"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 32 32"><path d="M9 24a6 6 0 0 1-1.7-11.76A9 9 0 0 1 25 14a5 5 0 0 1-.5 10H9Z"/></symbol>
+    <symbol id="i-database" viewBox="0 0 32 32"><ellipse cx="16" cy="7" rx="10" ry="4"/><path d="M6 7v18c0 2.2 4.5 4 10 4s10-1.8 10-4V7M6 16c0 2.2 4.5 4 10 4s10-1.8 10-4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 32 32"><path d="M8 3h11l6 6v20H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M19 3v7h6M11 16h10M11 21h10"/></symbol>
+    <symbol id="i-git" viewBox="0 0 32 32"><circle cx="9" cy="6" r="3"/><circle cx="9" cy="26" r="3"/><circle cx="24" cy="15" r="3"/><path d="M9 9v14M9 16h9c3.3 0 6-2.7 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v5M12 7h.01"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.9 9A7 7 0 0 1 18 7l2 5M4 12l2 5a7 7 0 0 0 12.1-2"/></symbol>
+  </svg>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Web Explained, back to top">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        WEB EXPLAINED
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#concept">The concept</a>
+        <a href="#architecture">How it works</a>
+        <a href="#demo">Interactive demo</a>
+        <a class="nav-cta" href="#publish">Publish with GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">A simple guide to modern websites</span>
+          <h1 id="hero-title">Static files.<br><em>Dynamic experiences.</em></h1>
+          <p class="hero-lead">A static website is <strong>ready to display before you open it.</strong> But that does not mean it has to be boring, fixed, or non-interactive.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#concept">Understand the difference <svg class="mini-icon" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-light" href="#demo">Try the live demo</a>
+          </div>
+          <div class="hero-small"><span class="tick">✓</span> No technical background required</div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of a browser displaying a chart from prepared website files">
+          <div class="orbit" aria-hidden="true"></div><div class="orbit orbit-small" aria-hidden="true"></div>
+          <div class="float-tag one"><span class="float-dot"></span> Loaded from Cloudflare</div>
+          <div class="browser-art">
+            <div class="browser-top"><span class="dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="address">your-website.com</span></div>
+            <div class="browser-body">
+              <div class="browser-kicker">A modern website</div>
+              <div class="browser-headline">Beautiful. Fast.<br>Ready to go.</div>
+              <div class="browser-copy"></div><div class="browser-copy short"></div>
+              <div class="bar-chart" aria-hidden="true"><span style="--h:42%"></span><span style="--h:64%"></span><span style="--h:54%"></span><span style="--h:80%"></span><span style="--h:96%"></span><span style="--h:69%"></span><span style="--h:87%"></span></div>
+              <div class="browser-footer"><span>Interactive charts and controls</span><span class="mini-pill">All working</span></div>
+            </div>
+          </div>
+          <div class="file-chip" aria-label="HTML, CSS and JavaScript files"><span>HTML</span><span>CSS</span><span>JS</span></div>
+          <div class="float-tag two"><span class="float-dot"></span> Files already prepared</div>
+        </div>
+      </div>
+    </section>
+    <aside class="idea-strip" aria-label="Three important ideas">
+      <div class="wrap idea-grid">
+        <div class="idea"><span class="idea-num">01</span><div><h3>Files prepared in advance</h3><p>The website is ready when you visit.</p></div></div>
+        <div class="idea"><span class="idea-num">02</span><div><h3>Interaction happens in your browser</h3><p>Buttons, charts, filters, and animations still work.</p></div></div>
+        <div class="idea"><span class="idea-num">03</span><div><h3>Live data is still possible</h3><p>Connect to a database or external API.</p></div></div>
+      </div>
+    </aside>
+    <section class="section" id="concept" aria-labelledby="concept-title">
+      <div class="wrap">
+        <div class="section-top">
+          <span class="eyebrow">01 / Understanding the idea</span>
+          <h2 class="section-heading" id="concept-title">What does “static” actually mean?</h2>
+          <p class="section-intro">Imagine a restaurant. A static website is like a prepared menu that can be handed to every guest. A server-generated website is more like a dish made to order for each guest.</p>
+          <p class="callout">Static describes <em>how the website is delivered</em>, not how interesting or interactive it can be.</p>
+        </div>
+        <div class="comparison">
+          <article class="compare-card">
+            <div class="compare-badge">The prepared approach</div>
+            <h3>Static website</h3>
+            <p>Cloudflare sends the same ready-made website files to visitors. Your browser then displays and runs the site.</p>
+            <div class="compare-flow" aria-label="Visitor requests ready-made files from Cloudflare">
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-monitor"/></svg><span>Visitor</span></div>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-cloud"/></svg><span>Cloudflare</span></div>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-file"/></svg><span>Ready files</span></div>
+            </div>
+            <div class="compare-point"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Ideal for company sites, presentations, interactive dashboards and React frontends.</span></div>
+          </article>
+          <article class="compare-card dynamic">
+            <div class="compare-badge">The made-to-order approach</div>
+            <h3>Server-generated website</h3>
+            <p>A server processes the request and may build personalized HTML before sending a page back to the visitor.</p>
+            <div class="compare-flow" aria-label="Visitor requests a page from a server which generates HTML">
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-monitor"/></svg><span>Visitor</span></div>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-server"/></svg><span>App server</span></div>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <div class="compare-node"><svg viewBox="0 0 32 32"><use href="#i-file"/></svg><span>Built page</span></div>
+            </div>
+            <div class="compare-point"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Useful when a server needs to assemble pages or customize HTML for each request.</span></div>
+          </article>
+        </div>
+        <div class="comparison-footer"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div><strong>Important:</strong> Both approaches can show live information. A static frontend can request changing data from a backend without asking that backend to generate the webpage itself.</div></div>
+      </div>
+    </section>
+    <section class="dark-section" id="architecture" aria-labelledby="architecture-title">
+      <div class="wrap">
+        <span class="eyebrow">02 / Putting the pieces together</span>
+        <h2 class="section-heading" id="architecture-title">So how can a static website show live data?</h2>
+        <p class="section-intro">Because the website and its data are two different things. Cloudflare can host the frontend while Supabase handles data, logins and backend logic.</p>
+        <div class="architecture">
+          <div class="diagram-title"><span>The architecture, simplified</span><span class="diagram-note">Example: React + Cloudflare + Supabase</span></div>
+          <div class="diagram-main">
+            <div class="diagram-node cloudflare"><div class="diagram-icon"><svg viewBox="0 0 32 32"><use href="#i-cloud"/></svg></div><strong>Cloudflare</strong><small>Hosts ready-made HTML,<br>CSS and JavaScript</small></div>
+            <div class="diagram-link"><small>Sends files</small><div class="connector-line" aria-hidden="true"></div></div>
+            <div class="diagram-node"><div class="diagram-icon"><svg viewBox="0 0 32 32"><use href="#i-monitor"/></svg></div><strong>Your browser</strong><small>Displays the site, runs<br>interactions and requests data</small></div>
+            <div class="diagram-link both"><small>Reads / writes data</small><div class="connector-line" aria-hidden="true"></div></div>
+            <div class="diagram-node supabase"><div class="diagram-icon"><svg viewBox="0 0 32 32"><use href="#i-database"/></svg></div><strong>Supabase</strong><small>Handles database, security,<br>users and backend logic</small></div>
+          </div>
+          <div class="architecture-caption">
+            <div class="cap-item"><span class="cap-index">01</span><span>Cloudflare sends the application files to your browser.</span></div>
+            <div class="cap-item"><span class="cap-index">02</span><span>The browser runs the interface and responds to clicks.</span></div>
+            <div class="cap-item"><span class="cap-index">03</span><span>When needed, the browser contacts Supabase for live data.</span></div>
+          </div>
+        </div>
+        <p class="dark-conclusion"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><strong>The key:</strong> Cloudflare does not need to generate a new webpage each time the underlying data changes. The browser can update what you see using information from Supabase. Access still depends on authentication and database security rules.</span></p>
+      </div>
+    </section>
+    <section class="demo-section" id="demo" aria-labelledby="demo-title">
+      <div class="wrap demo-layout">
+        <div>
+          <span class="eyebrow">03 / Try it yourself</span>
+          <h2 class="section-heading" id="demo-title">This page is static.<br>Try changing it.</h2>
+          <p>Press <strong>Add completed visit</strong>. The number and progress bar update immediately. No server generates a new page.</p>
+          <p>The browser already has everything it needs to make this interaction work.</p>
+          <div class="demo-note"><strong>What about saving changes?</strong><br>This is just a local demonstration. Refreshing the page resets the count. A real application could save that information to Supabase.</div>
+        </div>
+        <div class="demo-card" aria-label="Interactive progress demonstration">
+          <div class="demo-header"><span class="small-title">Interactive dashboard example</span><span class="demo-status" id="demoStatus">Running in browser</span></div>
+          <div class="demo-number"><strong id="visitCount" aria-live="polite">12</strong><span>/ 20 visits completed</span></div>
+          <p class="demo-subtitle">Monthly operational target</p>
+          <div class="progress-track" role="progressbar" id="visitProgress" aria-label="Completed visits" aria-valuemin="0" aria-valuemax="20" aria-valuenow="12"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-labels"><span id="percentage">60% completed</span><span>Goal: 100%</span></div>
+          <div class="demo-buttons"><button type="button" id="addVisit">+ Add completed visit</button><button type="button" id="resetVisits">Reset</button></div>
+          <div class="demo-explainer"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><span>The JavaScript in this HTML file handles the button click and updates the interface. Nothing is sent to a server.</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="deployment" id="publish" aria-labelledby="publish-title">
+      <div class="wrap">
+        <div class="section-top">
+          <span class="eyebrow">04 / From your computer to the world</span>
+          <h2 class="section-heading" id="publish-title">Publish with GitHub + Cloudflare.</h2>
+          <p class="section-intro">The simple workflow: keep the code on GitHub, let Cloudflare host the built website, and get a public URL you can share.</p>
+        </div>
+        <div class="deploy-steps">
+          <article class="deploy-step"><div class="step-top"><span class="step-num">01</span><span class="step-icon"><svg viewBox="0 0 32 32"><use href="#i-file"/></svg></span></div><h3>Put your files on GitHub</h3><p>For a simple site like this one, your repository can contain a single file named <code>index.html</code>.</p></article>
+          <article class="deploy-step"><div class="step-top"><span class="step-num">02</span><span class="step-icon"><svg viewBox="0 0 32 32"><use href="#i-git"/></svg></span></div><h3>Connect the repository</h3><p>In Cloudflare's <strong>Workers &amp; Pages</strong> area, connect your GitHub repository and configure static deployment.</p></article>
+          <article class="deploy-step"><div class="step-top"><span class="step-num">03</span><span class="step-icon"><svg viewBox="0 0 32 32"><use href="#i-cloud"/></svg></span></div><h3>Your website goes live</h3><p>Cloudflare publishes the site at a public address. Future code pushes can trigger automatic redeployments.</p></article>
+        </div>
+        <div class="deploy-note"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg><span><strong>One-time setup, simple updates:</strong> edit your files, push changes to GitHub, and Cloudflare can publish the new version automatically. Static hosting often fits within the free tier.</span></div>
+      </div>
+    </section>
+    <section class="questions" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <div><span class="eyebrow">05 / Common questions</span><h2 class="section-heading" id="faq-title">A few things worth knowing.</h2></div>
+        <div class="faq-list">
+          <details open><summary>Can a static site have buttons, animations and charts?</summary><p>Yes. JavaScript running in the visitor's browser can update the screen, filter tables, draw charts, open dialogs, and power rich interactions.</p></details>
+          <details><summary>Can a static site have user accounts and logins?</summary><p>Yes, if it connects to an authentication provider or backend such as Supabase. The page files can be static even when access to private data is securely controlled.</p></details>
+          <details><summary>Can I host a React application on Cloudflare?</summary><p>Yes. Many React/Vite apps build into static HTML, CSS and JavaScript files, which Cloudflare can host. Some React frameworks also support server-rendered pages and may need additional server functionality.</p></details>
+          <details><summary>When would I need a backend?</summary><p>When you need things such as secure data storage, account management, payments, secret API keys, or server-side operations. You can still use a static frontend hosted on Cloudflare alongside that backend.</p></details>
+          <details><summary>What exactly does Cloudflare replace?</summary><p>For a static website, Cloudflare can replace the traditional web server responsible for serving your frontend files. It does not automatically replace a database or all your backend services.</p></details>
+        </div>
+      </div>
+    </section>
+    <section class="final" aria-labelledby="final-title">
+      <div class="wrap final-inner">
+        <div><span class="final-kicker">The idea in one sentence</span><h2 class="final-heading" id="final-title">Static describes the delivery.<br><em>Not the possibilities.</em></h2></div>
+        <a class="btn" href="#top">Back to the beginning <svg class="mini-icon" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span><strong>WEB EXPLAINED</strong> • A visual guide to static hosting</span><span>One HTML file. No external libraries required.</span></div></footer>
+  <script>
+    (() => {
+      const initial = 12;
+      const goal = 20;
+      let completed = initial;
+      const count = document.getElementById('visitCount');
+      const bar = document.getElementById('progressFill');
+      const percentage = document.getElementById('percentage');
+      const progress = document.getElementById('visitProgress');
+      const addButton = document.getElementById('addVisit');
+      const resetButton = document.getElementById('resetVisits');
+      const status = document.getElementById('demoStatus');
+      const update = () => {
+        const pct = Math.round((completed / goal) * 100);
+        count.textContent = completed;
+        bar.style.width = pct + '%';
+        percentage.textContent = pct + '% completed';
+        progress.setAttribute('aria-valuenow', String(completed));
+        addButton.disabled = completed >= goal;
+        addButton.textContent = completed >= goal ? 'Target achieved' : '+ Add completed visit';
+        status.textContent = completed >= goal ? 'Target reached' : 'Running in browser';
+      };
+      addButton.addEventListener('click', () => { completed = Math.min(goal, completed + 1); update(); });
+      resetButton.addEventListener('click', () => { completed = initial; update(); });
+      update();
+    })();
+  </script>
+</body>
+</html>
