@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071116">
+  <meta name="description" content="São Paulo 2040: an interactive vision of an autonomous aerial mobility network. Explore routes, fleet size and the geography of access.">
+  <meta property="og:title" content="São Paulo 2040 | The City Above the City">
+  <meta property="og:description" content="What happens when distance is no longer measured in traffic? Explore a speculative future of urban air mobility.">
+  <title>São Paulo 2040 | The City Above the City</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#071116;--bg2:#0d1b21;--bg3:#11232a;--ink:#e7f4f1;--muted:#8b9ea1;--mint:#b9fbcf;--sea:#66d4c3;--amber:#f1ae83;--stroke:rgba(199,238,224,.13);--header-h:78px;--font:'DM Sans',sans-serif;--display:'Space Grotesk',sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:5px}::selection{background:#b9fbcf;color:#071116}
+    .skip{position:absolute;z-index:100;left:20px;top:-100px;padding:12px 18px;background:var(--mint);color:var(--bg)}.skip:focus{top:20px}.wrap{width:min(1440px,calc(100% - 96px));margin-inline:auto}.topbar{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--stroke);position:relative;z-index:20}.topbar:before{content:"";position:absolute;left:-100vw;right:-100vw;bottom:-1px;border-bottom:1px solid var(--stroke);pointer-events:none}.brand{display:flex;align-items:center;gap:13px;font:700 16px var(--display);letter-spacing:-.6px;white-space:nowrap}.brand-mark{width:28px;height:28px;position:relative;display:inline-block;border:1.6px solid var(--mint);transform:rotate(45deg);border-radius:4px}.brand-mark:before,.brand-mark:after{content:"";position:absolute;background:var(--mint)}.brand-mark:before{height:1.5px;width:19px;top:12px;left:3px}.brand-mark:after{height:19px;width:1.5px;top:3px;left:12px}.brand em{font-style:normal;color:var(--mint)}.nav{display:flex;align-items:center;gap:35px}.nav a{font-size:12px;color:#b1c1c1;transition:color .2s}.nav a:hover{color:var(--mint)}.nav-tag{border:1px solid rgba(185,251,207,.35);padding:9px 14px;border-radius:50px;color:var(--mint);font:600 10px var(--display);letter-spacing:1.4px;white-space:nowrap}.pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:8px;box-shadow:0 0 0 5px rgba(185,251,207,.09);vertical-align:middle}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:720px;position:relative;gap:0;align-items:center}.hero-copy{position:relative;z-index:2;padding:70px 0 100px}.eyebrow{display:flex;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:2px;font:600 10px var(--display);color:var(--sea)}.eyebrow:before{content:"";width:27px;height:1px;background:currentColor}.hero h1{font:600 clamp(67px,7.3vw,126px)/.91 var(--display);letter-spacing:-.086em;margin:36px 0 30px}.hero h1 span{display:block}.hero h1 .accent{color:var(--mint)}.hero h1 .outline{color:transparent;-webkit-text-stroke:1.2px rgba(225,248,238,.75)}.hero-description{font-size:clamp(16px,1.45vw,20px);line-height:1.7;color:#aebfc0;max-width:495px;margin:0}.hero-description strong{color:var(--ink);font-weight:500}.hero-actions{display:flex;align-items:center;gap:28px;margin-top:40px;flex-wrap:wrap}.primary-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:54px;border-radius:3px;padding:0 20px;background:var(--mint);color:#102721;font:700 12px var(--display);transition:transform .25s,box-shadow .25s}.primary-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(185,251,207,.12)}.primary-btn .arrow{font-size:20px;font-weight:400}.text-link{border-bottom:1px solid #607370;padding-bottom:6px;color:#c1d1ce;font:500 12px var(--display);transition:color .2s}.text-link:hover{color:var(--mint)}.hero-aside{display:flex;align-items:center;gap:18px;margin-top:79px}.scroll-line{height:52px;width:1px;background:linear-gradient(to bottom,var(--mint),transparent)}.hero-aside span{color:#738b8a;font:500 10px var(--display);letter-spacing:1.8px;text-transform:uppercase;line-height:1.9}
+    .hero-visual{position:relative;height:670px;margin-left:-90px;min-width:0;isolation:isolate}.hero-visual:before{position:absolute;content:"";z-index:-2;inset:4% -22% 2% -14%;background:radial-gradient(circle at 56% 46%,rgba(44,126,110,.23),transparent 49%),radial-gradient(circle at 60% 70%,rgba(241,174,131,.1),transparent 54%);filter:blur(15px)}.hero-visual:after{position:absolute;z-index:-1;content:"";inset:0;background-image:linear-gradient(rgba(163,230,209,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(163,230,209,.03) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(circle at 50% 55%,#000,transparent 70%)}.hero-visual svg{width:100%;height:100%;overflow:visible}.floating-card{position:absolute;background:rgba(13,30,35,.83);backdrop-filter:blur(16px);border:1px solid rgba(179,234,216,.22);box-shadow:0 20px 80px rgba(0,0,0,.28);padding:17px 19px;border-radius:8px}.floating-card .micro{font:700 9px var(--display);text-transform:uppercase;letter-spacing:1.7px;color:#7fa4a3}.floating-card b{display:block;font:600 28px var(--display);letter-spacing:-1.3px;margin-top:9px}.floating-card small{color:var(--muted);font-size:11px}.float-one{left:8%;top:10%}.float-two{right:0;bottom:15%}.float-two b{font-size:21px;color:var(--mint)}.hero-corner{position:absolute;right:4%;top:12%;writing-mode:vertical-rl;font:600 10px var(--display);letter-spacing:2.3px;color:#6d8485}
+    .ribbon{border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);overflow:hidden}.ribbon-in{display:flex;align-items:center;gap:34px;min-height:72px;white-space:nowrap;justify-content:space-between}.ribbon strong{font:500 12px var(--display);text-transform:uppercase;letter-spacing:1.3px;color:#bacbca}.ribbon strong:nth-of-type(2),.ribbon strong:nth-of-type(4){color:var(--mint)}.ribbon .diamond{height:5px;width:5px;background:var(--amber);transform:rotate(45deg);flex:none}
+    .section{padding:125px 0}.section-label{font:700 10px var(--display);letter-spacing:2px;color:var(--sea);text-transform:uppercase}.section-head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin:25px 0 55px}.section-head h2{font:600 clamp(39px,4.1vw,69px)/1.03 var(--display);letter-spacing:-.064em;margin:0;max-width:850px}.section-head p{max-width:340px;color:var(--muted);font-size:14px;line-height:1.8;margin:0 0 6px}.story-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--stroke)}.story-card{padding:34px 44px 10px 0;min-height:270px;position:relative}.story-card:not(:first-child){padding-left:38px;border-left:1px solid var(--stroke)}.story-no{font:600 11px var(--display);letter-spacing:1.5px;color:var(--mint)}.story-card h3{font:500 26px/1.17 var(--display);letter-spacing:-1.1px;margin:55px 0 16px}.story-card p{font-size:13px;line-height:1.85;color:var(--muted);max-width:310px;margin:0}
+    .lab-wrap{background:linear-gradient(180deg,#0c1b20,#09161b);border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);position:relative;overflow:hidden}.lab-wrap:before{content:"";position:absolute;top:10%;right:-25%;width:750px;height:750px;border:1px solid rgba(170,223,208,.055);border-radius:50%;box-shadow:0 0 0 110px rgba(170,223,208,.012),0 0 0 220px rgba(170,223,208,.009);pointer-events:none}.lab-wrap .section{padding-bottom:115px}.lab-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}.lab-topline .utility{font:500 10px var(--display);color:#91aeaa;letter-spacing:1.1px;text-transform:uppercase}.lab-heading{max-width:820px;margin:0 0 46px;font:600 clamp(39px,4.1vw,67px)/1.05 var(--display);letter-spacing:-.07em}.lab-heading i{font:italic 400 1em Georgia,serif;color:var(--mint)}.lab-board{border:1px solid rgba(170,220,206,.16);background:#0b191f;box-shadow:0 34px 90px rgba(0,0,0,.19);border-radius:12px;overflow:hidden}.lab-toolbar{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:0;border-bottom:1px solid var(--stroke)}.control{padding:24px 28px 25px;min-width:0}.control+.control{border-left:1px solid var(--stroke)}.control label,.control .control-label{display:block;text-transform:uppercase;letter-spacing:1.7px;color:#86a4a0;font:700 9px var(--display);margin-bottom:15px}.control select{appearance:none;display:block;width:100%;border:0;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23b9fbcf' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 5px center;color:var(--ink);font:600 19px var(--display);outline:none;padding:3px 25px 3px 0;cursor:pointer}.control select option{background:#102329;color:var(--ink)}.fleet-top{display:flex;justify-content:space-between;align-items:center;gap:5px;margin:-2px 0 11px}.fleet-top b{font:600 25px var(--display);letter-spacing:-1px;color:var(--mint)}.fleet-top span{font:500 9px var(--display);color:#91aba5;text-transform:uppercase;letter-spacing:1.2px}.fleet-range{appearance:none;width:100%;height:3px;background:linear-gradient(to right,var(--mint) 0,var(--mint) var(--fill,78%),rgba(170,217,199,.2) var(--fill,78%),rgba(170,217,199,.2) 100%);border-radius:5px;cursor:pointer;margin:8px 0 0}.fleet-range::-webkit-slider-thumb{appearance:none;width:15px;height:15px;border:3px solid var(--bg2);border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--mint)}.fleet-range::-moz-range-thumb{width:10px;height:10px;border:2px solid #0d1b21;background:var(--mint);border-radius:50%;box-shadow:0 0 0 2px var(--mint)}.range-values{display:flex;justify-content:space-between;color:#6c8c87;font:500 10px var(--display);margin-top:12px}.map-main{display:grid;grid-template-columns:minmax(0,1fr) 276px;min-height:548px}.map-viewport{position:relative;min-width:0;overflow:auto;scrollbar-color:#35534b #0e2228}.map-canvas{min-width:665px;aspect-ratio:920 / 570;position:relative}.map-svg{width:100%;height:100%;display:block}.map-annotation{position:absolute;top:22px;left:28px;display:flex;align-items:center;gap:9px;font:600 9px var(--display);letter-spacing:1.6px;color:#6e908d;text-transform:uppercase;pointer-events:none}.map-annotation:before{content:"";width:6px;height:6px;border:1px solid var(--mint);border-radius:50%}.map-schematic{position:absolute;bottom:25px;left:28px;font:500 10px var(--display);color:#668582;letter-spacing:.2px;pointer-events:none}.hub{position:absolute;transform:translate(-50%,-50%);padding:0;border:0;background:transparent;color:var(--ink);display:grid;place-items:center;z-index:5;min-width:30px;min-height:30px}.hub:before{content:"";position:absolute;width:30px;height:30px;border-radius:50%;border:1px solid rgba(185,251,207,.25);transition:transform .2s,border-color .2s}.hub:after{content:"";width:9px;height:9px;border:2px solid #0c1c21;background:#78968b;border-radius:50%;position:absolute;z-index:2;transition:background .2s,box-shadow .2s}.hub:hover:before,.hub:focus-visible:before{transform:scale(1.35);border-color:var(--mint)}.hub:hover:after{background:var(--mint)}.hub.origin:after{background:var(--amber);box-shadow:0 0 0 5px rgba(241,174,131,.12)}.hub.destination:after{background:var(--mint);box-shadow:0 0 0 6px rgba(185,251,207,.13),0 0 20px rgba(185,251,207,.38)}.hub-label{position:absolute;top:25px;left:50%;transform:translateX(-50%);font:600 10px var(--display);white-space:nowrap;color:#a5b9b6;letter-spacing:.2px;pointer-events:none}.hub.origin .hub-label{color:#f1b992}.hub.destination .hub-label{color:#c7ffda}.hub-label.reverse{top:auto;bottom:26px}
+    .simulation{border-left:1px solid var(--stroke);padding:24px;display:flex;flex-direction:column;background:rgba(20,41,45,.32)}.sim-heading{display:flex;justify-content:space-between;align-items:center;font:700 10px var(--display);letter-spacing:1.6px;text-transform:uppercase;color:#8bb5a7;padding-bottom:24px;border-bottom:1px solid var(--stroke)}.live-tag{color:var(--mint);font:700 9px var(--display);letter-spacing:1px}.live-tag:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mint);margin-right:8px;box-shadow:0 0 9px var(--mint)}.route-name{font:500 17px var(--display);letter-spacing:-.5px;line-height:1.5;margin:26px 0 8px}.route-name .route-to{display:block;color:var(--mint);font-size:25px;font-weight:600;letter-spacing:-1px}.sim-sub{font-size:11px;color:#6e9188;margin:0 0 23px}.speed-card{border-radius:7px;padding:19px;background:linear-gradient(130deg,rgba(185,251,207,.12),rgba(185,251,207,.035));border:1px solid rgba(185,251,207,.15)}.speed-card .tiny{font:700 9px var(--display);letter-spacing:1.4px;text-transform:uppercase;color:#a0c1b1}.speed-card .big{font:600 54px var(--display);letter-spacing:-4px;color:var(--mint);line-height:1.2;margin:12px 0 0}.speed-card .big em{font:500 15px var(--display);letter-spacing:0;color:#9dd5bd;margin-left:4px}.speed-card .desc{font-size:11px;color:#92ada4;margin-top:8px}.sim-mini{padding:20px 0;border-bottom:1px solid var(--stroke);display:flex;align-items:center;justify-content:space-between;gap:8px}.sim-mini span{font-size:11px;color:#88aaa0}.sim-mini b{font:600 18px var(--display);color:var(--ink)}.sim-mini b.amber{color:var(--amber)}.mode-group{display:flex;gap:7px;margin-top:auto;padding-top:23px}.mode-group button{flex:1;background:transparent;border:1px solid #345048;border-radius:5px;color:#92aea7;padding:11px 4px;font:600 11px var(--display);transition:background .2s}.mode-group button[aria-pressed="true"]{background:#b9fbcf;color:#09231b;border-color:#b9fbcf}.lab-bottom{border-top:1px solid var(--stroke);padding:19px 27px;display:flex;justify-content:space-between;gap:20px;align-items:center}.lab-bottom p{margin:0;font-size:11px;color:#6e8a84;line-height:1.6}.lab-bottom a{text-decoration:underline;text-underline-offset:3px;color:#a5ccc0;white-space:nowrap;font-size:11px}.model-notes{margin-top:17px;border-bottom:1px solid rgba(150,211,194,.15);padding:0 2px 15px;color:#74928a;font-size:11px;line-height:1.8}.model-notes summary{cursor:pointer;color:#a8cbb9;font:600 11px var(--display);letter-spacing:.2px;padding:9px 0}.model-notes p{max-width:900px}
+    .comparison{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:70px}.comparison h3{font:500 clamp(30px,3vw,43px)/1.15 var(--display);letter-spacing:-1.9px;margin:0 0 13px;max-width:470px}.comparison p{color:var(--muted);font-size:13px;line-height:1.8;max-width:440px}.compare-bars{padding:32px 34px;border:1px solid var(--stroke);border-radius:9px;background:rgba(8,26,28,.44)}.bar-heading{display:flex;justify-content:space-between;align-items:center;font:600 11px var(--display);color:#c5d9d1;margin:0 0 14px}.bar-heading span{font-variant-numeric:tabular-nums}.bar-track{height:12px;background:rgba(180,209,194,.08);margin-bottom:26px;overflow:hidden;border-radius:3px}.bar-fill{height:100%;width:55%;border-radius:3px;transition:width .65s cubic-bezier(.22,1,.36,1)}.bar-road{background:linear-gradient(90deg,#91624e,var(--amber))}.bar-air{background:linear-gradient(90deg,#478d79,var(--mint))}.compare-foot{color:#78988b;font-size:10px;border-top:1px solid var(--stroke);padding-top:12px;margin-top:-4px}
+    .impact{padding:134px 0}.impact-title{font:600 clamp(44px,5.6vw,85px)/1 var(--display);letter-spacing:-.07em;max-width:970px;margin:24px 0 70px}.impact-title em{font:italic 400 1.04em Georgia,serif;color:var(--mint)}.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.impact-card{min-height:330px;border:1px solid var(--stroke);background:linear-gradient(155deg,rgba(33,65,66,.45),rgba(14,30,36,.4));border-radius:8px;display:flex;flex-direction:column;padding:24px;transition:transform .3s,background .3s}.impact-card:hover{transform:translateY(-7px);background:linear-gradient(155deg,rgba(40,86,77,.55),rgba(14,30,36,.5))}.impact-card .icon-art{height:110px;display:flex;align-items:center}.impact-card svg{width:108px;height:96px;overflow:visible}.impact-card h3{font:600 21px/1.2 var(--display);letter-spacing:-.8px;margin:auto 0 14px}.impact-card p{font-size:12px;line-height:1.85;color:#91a9a4;margin:0}.impact-card .index{font:700 10px var(--display);letter-spacing:1px;color:var(--mint)}
+    .closing{border-top:1px solid var(--stroke);padding:120px 0 105px;position:relative;overflow:hidden}.closing:before{content:"";position:absolute;right:0;top:0;width:65%;height:100%;pointer-events:none;background:radial-gradient(ellipse at 75% 42%,rgba(185,251,207,.10),transparent 66%)}.closing .wrap{position:relative}.closing h2{font:600 clamp(52px,6.9vw,108px)/.99 var(--display);letter-spacing:-.083em;max-width:1130px;margin:28px 0 30px}.closing h2 em{font:italic 400 1em Georgia,serif;color:var(--mint)}.closing-sub{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-top:52px}.closing-sub p{color:#9ab3ac;line-height:1.8;max-width:610px;font-size:14px}.closing .huge-asterisk{font:500 113px/1 var(--display);color:var(--mint);padding-right:35px}.footer{border-top:1px solid var(--stroke);padding:25px 0 38px}.footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}.footer p{font:500 10px var(--display);letter-spacing:.6px;color:#71948b;margin:0}.footer a{font:600 10px var(--display);color:#b0d9c7;text-decoration:underline;text-underline-offset:5px}.appear{opacity:0;transform:translateY(23px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.75,.25,1)}.appear.visible{opacity:1;transform:none}
+    @media(max-width:1180px){.wrap{width:min(100% - 64px,1440px)}.hero{min-height:645px}.hero-visual{height:600px;margin-left:-35px}.hero h1{font-size:clamp(65px,7.6vw,100px)}.section{padding:105px 0}.map-main{grid-template-columns:minmax(0,1fr) 245px}.lab-toolbar{grid-template-columns:.9fr .9fr 1.2fr}.control{padding-inline:19px}.impact-grid{grid-template-columns:repeat(2,1fr)}.impact-card{min-height:275px}}
+    @media(max-width:820px){.wrap{width:calc(100% - 40px)}.topbar{height:68px}.nav{gap:13px}.nav a{display:none}.nav-tag{font-size:9px;padding:7px 10px}.hero{display:flex;flex-direction:column;min-height:unset;align-items:stretch}.hero-copy{padding:88px 0 20px}.hero h1{font-size:clamp(61px,12.2vw,97px);letter-spacing:-.08em;margin:27px 0}.hero-description{max-width:610px}.hero-visual{height:490px;margin:0 -18px 12px}.float-one{left:9%;top:7%}.float-two{right:5%;bottom:11%}.hero-aside{margin-top:55px}.ribbon-in{justify-content:flex-start;gap:25px}.ribbon strong{font-size:10px}.section{padding:85px 0}.section-head{display:block;margin-bottom:37px}.section-head p{margin-top:20px;max-width:600px}.story-grid{grid-template-columns:1fr}.story-card{min-height:unset;padding:22px 0 27px!important;border-left:0!important;border-bottom:1px solid var(--stroke)}.story-card h3{margin:19px 0 8px}.lab-topline .utility{display:none}.lab-heading{margin-bottom:28px}.lab-toolbar{grid-template-columns:1fr 1fr}.control:nth-child(3){grid-column:span 2;border-left:0;border-top:1px solid var(--stroke)}.map-main{display:block}.map-viewport{max-height:none}.simulation{border-left:0;border-top:1px solid var(--stroke);display:grid;grid-template-columns:1fr 1fr;gap:0 25px}.sim-heading,.route-name,.sim-sub,.speed-card,.mode-group{grid-column:span 2}.sim-mini{padding:18px 0}.mode-group{margin-top:2px}.compare-bars{padding:25px}.comparison{grid-template-columns:1fr;gap:20px}.impact{padding:95px 0}.impact-title{margin-bottom:40px}.closing{padding:85px 0}.closing-sub{align-items:center}}
+    @media(max-width:530px){.brand{font-size:14px;gap:11px}.brand-mark{width:23px;height:23px}.brand-mark:before{width:16px;top:10px;left:2px}.brand-mark:after{height:16px;top:2px;left:10px}.nav-tag{font-size:8px;letter-spacing:.6px}.hero-copy{padding-top:66px}.hero h1{font-size:clamp(57px,14vw,82px)}.hero-description{font-size:15px}.hero-visual{height:365px;margin:0 -30px 10px}.floating-card{padding:11px 13px}.floating-card b{font-size:20px}.floating-card small{font-size:9px}.floating-card .micro{font-size:8px}.float-one{left:8%;top:5%}.float-two{right:8%;bottom:6%}.hero-corner{display:none}.hero-actions{gap:20px}.hero-aside{margin-top:42px}.ribbon-in{min-height:58px}.section-head h2,.lab-heading{font-size:39px}.lab-board{border-radius:8px}.lab-toolbar{grid-template-columns:1fr}.control,.control:nth-child(3){grid-column:span 1;border-left:0!important;border-top:1px solid var(--stroke);padding:21px}.control:first-child{border-top:0}.control select{font-size:18px}.map-canvas{min-width:665px}.map-viewport{max-height:415px}.map-annotation{top:12px}.simulation{padding:20px}.speed-card .big{font-size:45px}.lab-bottom{padding:18px;display:block}.lab-bottom a{display:inline-block;margin-top:10px}.comparison{margin-top:52px}.impact-grid{grid-template-columns:1fr}.impact-card{min-height:250px}.impact-card .icon-art{height:80px}.closing h2{font-size:clamp(49px,11vw,76px)}.closing-sub{display:block}.closing .huge-asterisk{font-size:75px;padding:0;text-align:right}.footer .wrap{align-items:flex-start;flex-direction:column}.footer p{line-height:1.7}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}.appear{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <header class="topbar wrap">
+    <a class="brand" href="#top" aria-label="AER São Paulo home"><span class="brand-mark" aria-hidden="true"></span>AER <em>/</em> SÃO PAULO</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#idea">The thesis</a>
+      <a href="#network">Explore the network</a>
+      <a href="#impact">The ripple effect</a>
+      <span class="nav-tag"><span class="pulse-dot"></span>CONCEPT / 2040</span>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" id="top">
+      <div class="hero-copy">
+        <div class="eyebrow">An alternative geography of São Paulo</div>
+        <h1><span>THE CITY</span><span class="outline">ABOVE</span><span class="accent">THE CITY.</span></h1>
+        <p class="hero-description">What if the distance between home and opportunity was no longer measured in traffic? <strong>Imagine a city connected by an invisible, autonomous network in the sky.</strong></p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#network">Explore the future <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#idea">The idea behind it</a>
+        </div>
+        <div class="hero-aside"><div class="scroll-line" aria-hidden="true"></div><span>Scroll to explore<br>A speculative 2040 scenario</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a futuristic São Paulo skyline with luminous aerial routes">
+        <svg viewBox="0 0 750 700" role="img" aria-label="Stylized night skyline with flying aircraft and glowing mobility paths">
+          <defs>
+            <linearGradient id="terrain" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d4847"/><stop offset="1" stop-color="#0c2229"/></linearGradient>
+            <linearGradient id="wallA" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#397371"/><stop offset="1" stop-color="#123038"/></linearGradient>
+            <linearGradient id="wallB" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#26514f"/><stop offset="1" stop-color="#10242b"/></linearGradient>
+            <linearGradient id="topA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5d9692"/><stop offset="1" stop-color="#316463"/></linearGradient>
+            <linearGradient id="flightGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#70d6c6" stop-opacity=".12"/><stop offset=".5" stop-color="#d7ffe4"/><stop offset="1" stop-color="#70d6c6" stop-opacity=".2"/></linearGradient>
+            <pattern id="winA" width="17" height="22" patternUnits="userSpaceOnUse"><path d="M5 5h5v8H5z" fill="#b8f5cc" opacity=".34"/></pattern>
+            <pattern id="winB" width="20" height="24" patternUnits="userSpaceOnUse"><path d="M6 6h6v7H6z" fill="#e7ad86" opacity=".24"/></pattern>
+            <filter id="shine"><feGaussianBlur stdDeviation="7"/></filter>
+            <filter id="smallShine"><feGaussianBlur stdDeviation="3"/></filter>
+          </defs>
+          <ellipse cx="405" cy="450" rx="276" ry="155" stroke="#b9fbcf" stroke-opacity=".13" fill="none" stroke-dasharray="4 12"/>
+          <ellipse cx="405" cy="450" rx="355" ry="207" stroke="#b9fbcf" stroke-opacity=".075" fill="none" stroke-dasharray="3 17"/>
+          <path d="M52 461 L377 275 L709 462 L378 658 Z" fill="url(#terrain)" stroke="#538481" stroke-opacity=".32"/>
+          <g fill="none" stroke="#9cd3c5" stroke-opacity=".12" stroke-width="1.2">
+            <path d="M96 488 417 302M141 512 461 326M189 542 510 351M239 571 556 378M288 600 600 401M333 627 650 429"/>
+            <path d="M102 430 434 626M153 403 487 596M206 373 534 573M261 341 583 541M318 307 640 508"/>
+          </g>
+          <g fill="none" stroke="#d7e5bf" stroke-opacity=".17" stroke-width="3">
+            <path d="M110 450 437 635M256 354 582 538M80 503 397 319M226 584 536 402"/>
+          </g>
+          <path d="M115 484Q309 389 482 504T701 471" stroke="#b8f5cd" stroke-width="3" stroke-opacity=".25" fill="none" stroke-dasharray="7 13"/>
+          <g>
+            <path d="M250 419 299 392 333 413 284 439Z" fill="url(#topA)"/><path d="M250 419 284 439 284 523 250 504Z" fill="url(#wallB)"/><path d="M284 439 333 413 333 497 284 523Z" fill="url(#wallA)"/>
+            <path d="M284 439 333 413 333 497 284 523Z" fill="url(#winA)" opacity=".65"/>
+            <path d="M325 380 384 346 423 370 363 405Z" fill="#538d88"/><path d="M325 380 363 405 363 533 325 510Z" fill="url(#wallB)"/><path d="M363 405 423 370 423 499 363 533Z" fill="url(#wallA)"/><path d="M363 405 423 370 423 499 363 533Z" fill="url(#winA)" opacity=".8"/><path d="M325 380 363 405 363 533 325 510Z" fill="url(#winB)"/>
+            <path d="M411 397 461 369 495 389 444 419Z" fill="#59948d"/><path d="M411 397 444 419 444 523 411 502Z" fill="#173a3f"/><path d="M444 419 495 389 495 494 444 523Z" fill="url(#wallA)"/><path d="M444 419 495 389 495 494 444 523Z" fill="url(#winB)"/>
+            <path d="M462 471 513 442 545 460 496 489Z" fill="#386c69"/><path d="M462 471 496 489 496 560 462 541Z" fill="#132e34"/><path d="M496 489 545 460 545 529 496 560Z" fill="url(#wallA)"/><path d="M496 489 545 460 545 529 496 560Z" fill="url(#winA)" opacity=".5"/>
+            <path d="M200 481 244 457 275 475 229 501Z" fill="#427d79"/><path d="M200 481 229 501 229 559 200 542Z" fill="#173239"/><path d="M229 501 275 475 275 535 229 559Z" fill="#295757"/><path d="M229 501 275 475 275 535 229 559Z" fill="url(#winB)"/>
+            <path d="M523 431 554 414 578 427 547 447Z" fill="#427b75"/><path d="M523 431 547 447 547 500 523 484Z" fill="#133139"/><path d="M547 447 578 427 578 480 547 500Z" fill="url(#wallA)"/>
+            <path d="M282 365 311 349 332 362 303 379Z" fill="#508d88"/><path d="M282 365 303 379 303 464 282 450Z" fill="#163139"/><path d="M303 379 332 362 332 447 303 464Z" fill="#336767"/>
+            <path d="M368 317 403 297 429 312 394 332Z" fill="#65a09a"/><path d="M368 317 394 332 394 381 368 368Z" fill="#18363b"/><path d="M394 332 429 312 429 364 394 381Z" fill="#396d69"/>
+          </g>
+          <g fill="#c7ffe0">
+            <circle cx="285" cy="437" r="2.8"/><circle cx="365" cy="401" r="2.8"/><circle cx="445" cy="416" r="2.8"/><circle cx="496" cy="487" r="2.8"/>
+          </g>
+          <g fill="none" stroke="#b9fbcf" stroke-opacity=".55" stroke-width="2">
+            <path d="M285 437q80 -76 160 -21"/><path d="M365 401q101 -144 202 -75" stroke-dasharray="4 10"/><path d="M496 487q70 -60 112 -116" stroke-dasharray="4 10"/>
+          </g>
+          <path d="M61 337 C198 175 405 501 671 236" fill="none" stroke="#b9fbcf" opacity=".18" stroke-width="16" filter="url(#shine)"/>
+          <path id="aerial-hero-route" d="M61 337 C198 175 405 501 671 236" fill="none" stroke="url(#flightGrad)" stroke-width="2.6" stroke-linecap="round"/>
+          <g><circle r="7" fill="#b9fbcf" opacity=".7" filter="url(#smallShine)"><animateMotion dur="7s" repeatCount="indefinite" path="M61 337 C198 175 405 501 671 236"/></circle><g transform="scale(.75)"><path d="M-23 0H23M0-16V16" stroke="#d5ffe4" stroke-width="3" stroke-linecap="round"/><path d="M-6-6L0-12 6-6 0 16Z" fill="#e8fff0"/><circle r="4" fill="#f1ae83"/></g><animateMotion dur="7s" repeatCount="indefinite" path="M61 337 C198 175 405 501 671 236"/></g>
+          <g fill="none" stroke="#b9fbcf" stroke-width="1.4" opacity=".75"><circle cx="61" cy="337" r="8"/><circle cx="671" cy="236" r="8"/></g>
+          <g fill="#b9fbcf" opacity=".7"><circle cx="61" cy="337" r="2.5"/><circle cx="671" cy="236" r="2.5"/></g>
+          <g fill="#b9fbcf" opacity=".22"><circle cx="129" cy="176" r="2"/><circle cx="569" cy="120" r="2"/><circle cx="644" cy="544" r="2"/><circle cx="183" cy="570" r="2"/></g>
+        </svg>
+        <div class="floating-card float-one"><div class="micro">Imagined network size</div><b id="hero-fleet">200,000</b><small>autonomous aerial vehicles</small></div>
+        <div class="floating-card float-two"><div class="micro">The hypothetical promise</div><b>More city. Less commute.</b><small>One connected metropolitan region</small></div>
+        <span class="hero-corner">AERIAL MOBILITY / DESIGN STUDY 001</span>
+      </div>
+    </section>
+    <div class="ribbon" aria-label="Scenario concepts"><div class="wrap ribbon-in"><strong>Autonomous movement</strong><span class="diamond"></span><strong>Demand-led routing</strong><span class="diamond"></span><strong>Rooftop access</strong><span class="diamond"></span><strong>One shared network</strong><span class="diamond"></span><strong>Metropolitan freedom</strong></div></div>
+    <section class="section wrap" id="idea">
+      <div class="section-label">01 / Reframe the city</div>
+      <div class="section-head appear">
+        <h2>A city is not its roads.<br>It's the places you can reach.</h2>
+        <p>Picture an aircraft as an ordinary service, not a luxury vehicle. Pick a destination. The network handles the rest.</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-card appear"><span class="story-no">01 / ACCESS</span><h3>Summon, don't own.</h3><p>Cars made individual ownership normal. A dense air network could make immediate access the more useful model.</p></article>
+        <article class="story-card appear"><span class="story-no">02 / INFRASTRUCTURE</span><h3>The roof becomes a door.</h3><p>Under suitable structural, safety and regulatory conditions, some existing rooftops could become neighborhood arrival points.</p></article>
+        <article class="story-card appear"><span class="story-no">03 / GEOGRAPHY</span><h3>Move the edge of the city.</h3><p>If travel times fall significantly, a household's practical choices of where to live, work and spend time can expand.</p></article>
+      </div>
+    </section>
+    <section class="lab-wrap" id="network">
+      <div class="wrap section">
+        <div class="lab-topline"><div class="section-label">02 / Interactive future lab</div><div class="utility"><span class="pulse-dot"></span>Hypothetical model / Not live traffic</div></div>
+        <h2 class="lab-heading appear">Change the scale.<br><i>Watch the city shrink.</i></h2>
+        <div class="lab-board appear">
+          <div class="lab-toolbar">
+            <div class="control"><label for="from">Your starting point</label><select id="from"></select></div>
+            <div class="control"><label for="to">Your destination</label><select id="to"></select></div>
+            <div class="control"><label for="fleet">Aircraft across the wider network</label><div class="fleet-top"><b id="fleet-num">200,000</b><span>Scenario fleet</span></div><input id="fleet" class="fleet-range" type="range" min="20000" max="250000" step="10000" value="200000" aria-label="Scenario aircraft fleet size"><div class="range-values"><span>20K</span><span>250K</span></div></div>
+          </div>
+          <div class="map-main">
+            <div class="map-viewport" aria-label="Scroll to view all locations in the schematic map" tabindex="0">
+              <div class="map-canvas" id="map-canvas">
+                <svg class="map-svg" viewBox="0 0 920 570" aria-hidden="true">
+                  <defs>
+                    <pattern id="mapgrid" width="49" height="49" patternUnits="userSpaceOnUse"><path d="M49 0H0V49" fill="none" stroke="#a6d4bc" stroke-opacity=".08" stroke-width="1"/></pattern>
+                    <radialGradient id="mapglow"><stop stop-color="#326d5d" stop-opacity=".22"/><stop offset="1" stop-color="#326d5d" stop-opacity="0"/></radialGradient>
+                    <linearGradient id="active-flight" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#eeab87"/><stop offset=".46" stop-color="#c9fbd5"/><stop offset="1" stop-color="#86e9c9"/></linearGradient>
+                    <filter id="routeglow"><feGaussianBlur stdDeviation="6"/></filter>
+                  </defs>
+                  <rect width="920" height="570" fill="#0a1b20"/>
+                  <rect width="920" height="570" fill="url(#mapgrid)"/>
+                  <circle cx="466" cy="294" r="330" fill="url(#mapglow)"/>
+                  <g fill="none" stroke="#8fbbac" stroke-opacity=".10">
+                    <path d="M70 96 315 52 658 95 855 231 782 441 581 527 231 500 78 306Z" stroke-width="1.5"/>
+                    <path d="M120 150 352 97 666 146 790 244 719 408 536 473 268 453 146 299Z"/>
+                    <path d="M199 200 366 157 634 197 712 261 654 372 511 430 318 400 221 307Z"/>
+                    <ellipse cx="470" cy="294" rx="245" ry="174" stroke-dasharray="2 9"/>
+                    <ellipse cx="470" cy="294" rx="340" ry="236" stroke-dasharray="2 13"/>
+                  </g>
+                  <g fill="none" stroke="#588980" stroke-width="6" stroke-opacity=".09" stroke-linecap="round">
+                    <path d="M-20 480C245 430 218 125 479 190S711 360 943 120"/>
+                    <path d="M70 40C190 267 284 176 354 441S690 492 895 560"/>
+                    <path d="M-15 290C168 350 373 85 545 276S759 270 949 369"/>
+                  </g>
+                  <g fill="none" stroke="#96aa99" stroke-opacity=".14" stroke-width="2" stroke-dasharray="3 8">
+                    <path d="M124 192 291 306 394 324 492 284 757 178"/>
+                    <path d="M291 306 403 462 526 391 714 448 757 178"/>
+                    <path d="M124 192 394 324 714 448"/>
+                    <path d="M394 324 526 391 492 284 757 178"/>
+                  </g>
+                  <g fill="none" stroke="#87e8ba" stroke-opacity=".12"><circle cx="492" cy="284" r="53"/><circle cx="492" cy="284" r="103" stroke-dasharray="3 9"/><circle cx="492" cy="284" r="155" stroke-dasharray="2 13"/></g>
+                  <text x="597" y="77" fill="#88ad98" opacity=".24" font-family="Space Grotesk,sans-serif" font-size="45" font-weight="700" letter-spacing="-2">SÃO PAULO</text>
+                  <text x="71" y="529" fill="#93ad9f" opacity=".3" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="3">METROPOLITAN AREA / 2040</text>
+                  <path id="road-line" fill="none" stroke="#efa67d" stroke-width="3" stroke-dasharray="5 10" stroke-opacity=".4"/>
+                  <path id="flight-glow" fill="none" stroke="#a7fbd2" stroke-width="11" opacity=".6" filter="url(#routeglow)"/>
+                  <path id="flight-line" fill="none" stroke="url(#active-flight)" stroke-linecap="round" stroke-width="2.8"/>
+                  <g id="ship" style="filter:drop-shadow(0 0 12px rgba(185,251,207,.8))">
+                    <circle r="17" fill="#b9fbcf" opacity=".12"/><circle r="8" fill="#b9fbcf" opacity=".18"/>
+                    <path d="M-12 0H12M0-11V11" stroke="#d6ffe0" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M-4 4 0-10 4 4 0 11Z" fill="#e6ffeb"/>
+                  </g>
+                </svg>
+                <div id="hub-layer"></div>
+                <div class="map-annotation">Select any station</div>
+                <div class="map-schematic">Illustrative layout. Not a navigational map.</div>
+              </div>
+            </div>
+            <aside class="simulation" aria-label="Route scenario calculations" aria-live="polite">
+              <div class="sim-heading"><span>Scenario output</span><span class="live-tag">Model</span></div>
+              <div class="route-name"><span id="route-from">Pinheiros</span><span class="route-to" id="route-to">Guarulhos</span></div>
+              <p class="sim-sub" id="route-distance">Approx. straight-line separation</p>
+              <div class="speed-card"><div class="tiny">Illustrative time recovered</div><div class="big"><span id="time-saved">58</span><em>min</em></div><div class="desc">Compared with the modeled road scenario</div></div>
+              <div class="sim-mini"><span>Flight + handling time</span><b id="flight-time">19 min</b></div>
+              <div class="sim-mini"><span>Air network pickup wait</span><b id="pickup-time">3 min</b></div>
+              <div class="sim-mini"><span>Road journey scenario</span><b class="amber" id="road-time">80 min</b></div>
+              <div class="mode-group" role="group" aria-label="Map line view"><button id="view-air" type="button" aria-pressed="true">Air grid</button><button id="view-road" type="button" aria-pressed="false">Road journey</button></div>
+            </aside>
+          </div>
+          <div class="lab-bottom"><p>Choose two stations, drag the fleet slider, or tap a station on the map. Larger fleets reduce modeled pickup delay.</p><a href="#model-assumptions">Explore assumptions ↓</a></div>
+        </div>
+        <details class="model-notes" id="model-assumptions"><summary>What is this model actually calculating?</summary><p>This is a conceptual interactive exhibit, not a traffic forecast or transport feasibility assessment. The map is schematic. Station coordinates approximate real areas. Distances are straight-line estimates. Flight time assumes 150 km/h average horizontal speed plus 7 minutes for access and handling. The road scenario assumes a route 1.48 times the straight-line distance, 27 km/h average road speed, plus 7 minutes. The fleet/wait curve is an invented illustrative relationship, not a measured operational model. Real performance depends on regulation, weather, noise, safety, vertiport capacity, airspace separation, energy, cost and demand.</p></details>
+        <div class="comparison appear">
+          <div><div class="section-label">The geography of minutes</div><h3>Same destination.<br>A different relationship with distance.</h3><p>Move the stations and compare the imagined journeys. The real shift is not simply speed. It is the freedom to consider more of the metropolitan area as part of everyday life.</p></div>
+          <div class="compare-bars">
+            <div class="bar-heading"><strong>Road scenario</strong><span id="bar-road-value">80 min</span></div><div class="bar-track"><div class="bar-fill bar-road" id="bar-road" style="width:100%"></div></div>
+            <div class="bar-heading"><strong>Aerial network including pickup</strong><span id="bar-air-value">22 min</span></div><div class="bar-track"><div class="bar-fill bar-air" id="bar-air" style="width:28%"></div></div>
+            <div class="compare-foot">Both bars use hypothetical assumptions. They are not actual route times.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="impact wrap" id="impact">
+      <div class="section-label">03 / The second-order effects</div>
+      <h2 class="impact-title appear">The real revolution<br>is what happens <em>on the ground.</em></h2>
+      <div class="impact-grid">
+        <article class="impact-card appear"><span class="index">01 / LIVING</span><div class="icon-art"><svg viewBox="0 0 120 100" fill="none" stroke="#b9fbcf" stroke-width="1.5"><path d="M11 67 57 31l52 35M25 58v33h68V58M48 91V68h23v23"/><path d="M13 88c14-12 18-7 28-1M79 84c11-7 21-5 31 4" opacity=".35"/><circle cx="57" cy="31" r="8" stroke-dasharray="3 5" opacity=".45"/></svg></div><h3>A wider idea of home</h3><p>More neighborhoods and surrounding cities become plausible places to live.</p></article>
+        <article class="impact-card appear"><span class="index">02 / ARCHITECTURE</span><div class="icon-art"><svg viewBox="0 0 120 100" fill="none" stroke="#b9fbcf" stroke-width="1.5"><path d="M27 93V30l31-18 35 18v63M27 30l31 18 35-18M58 48v45M37 56h11m19-2h13M37 69h11m19-2h13M37 82h11m19-2h13" opacity=".9"/><ellipse cx="60" cy="11" rx="27" ry="6" stroke-dasharray="3 5" opacity=".5"/><path d="M48 11h24M60 2v18" stroke="#f1ae83"/></svg></div><h3>Roofs with a new role</h3><p>Buildings could gain a new type of entrance, where safety and feasibility permit.</p></article>
+        <article class="impact-card appear"><span class="index">03 / ECONOMY</span><div class="icon-art"><svg viewBox="0 0 120 100" fill="none" stroke="#b9fbcf" stroke-width="1.4"><circle cx="57" cy="51" r="37" stroke-dasharray="4 7" opacity=".3"/><circle cx="57" cy="51" r="25" opacity=".55"/><path d="M20 54 40 30 75 69 107 22M91 22h16v16"/><circle cx="20" cy="54" r="4" fill="#b9fbcf"/><circle cx="40" cy="30" r="4" fill="#b9fbcf"/><circle cx="75" cy="69" r="4" fill="#b9fbcf"/><circle cx="107" cy="22" r="4" fill="#b9fbcf"/></svg></div><h3>Opportunity redistributes</h3><p>Employment and services become less tightly tied to a handful of road corridors.</p></article>
+        <article class="impact-card appear"><span class="index">04 / SOFTWARE</span><div class="icon-art"><svg viewBox="0 0 120 100" fill="none" stroke="#b9fbcf" stroke-width="1.5"><path d="M14 19h92v62H14zM22 27h76v46H22z" opacity=".7"/><path d="M33 39 55 53 83 34M55 53 81 63" stroke-dasharray="4 5"/><circle cx="33" cy="39" r="5" fill="#0c2228"/><circle cx="55" cy="53" r="5" fill="#b9fbcf"/><circle cx="83" cy="34" r="5" fill="#0c2228"/><circle cx="81" cy="63" r="5" fill="#f1ae83"/><path d="M44 91h34M60 81v10"/></svg></div><h3>One operating system</h3><p>Coordinating thousands of safe movements matters more than any one aircraft.</p></article>
+      </div>
+    </section>
+    <section class="closing">
+      <div class="wrap appear"><div class="section-label">Beyond the aircraft</div><h2>What if an entire city<br>became <em>closer?</em></h2><div class="closing-sub"><p>São Paulo 2040 is not a prediction. It is an invitation to think bigger about access, infrastructure and the geometry of everyday life. The hard work is making any such system safe, quiet, equitable and practical.</p><div class="huge-asterisk" aria-hidden="true">✳</div></div></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><p>AER / SÃO PAULO &nbsp; · &nbsp; INTERACTIVE DESIGN STUDY &nbsp; · &nbsp; 2026</p><a href="https://github.com/virtualsalim/static-pages-explained" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a></div></footer>
+  <script>
+    (function () {
+      'use strict';
+      var locations = [
+        {name:'Alphaville',x:124,y:192,lat:-23.494,lon:-46.847},
+        {name:'Osasco',x:291,y:306,lat:-23.533,lon:-46.791},
+        {name:'Pinheiros',x:394,y:324,lat:-23.565,lon:-46.696},
+        {name:'Paulista',x:492,y:284,lat:-23.563,lon:-46.655},
+        {name:'Moema',x:526,y:391,lat:-23.601,lon:-46.666},
+        {name:'Santo Amaro',x:403,y:462,lat:-23.656,lon:-46.706},
+        {name:'Guarulhos',x:757,y:178,lat:-23.453,lon:-46.533},
+        {name:'Santo André',x:714,y:448,lat:-23.664,lon:-46.532}
+      ];
+      var fromSelect = document.getElementById('from');
+      var toSelect = document.getElementById('to');
+      var fleetControl = document.getElementById('fleet');
+      var fleetLabel = document.getElementById('fleet-num');
+      var heroFleet = document.getElementById('hero-fleet');
+      var airPath = document.getElementById('flight-line');
+      var glowPath = document.getElementById('flight-glow');
+      var roadPath = document.getElementById('road-line');
+      var ship = document.getElementById('ship');
+      var hubLayer = document.getElementById('hub-layer');
+      var viewAir = document.getElementById('view-air');
+      var viewRoad = document.getElementById('view-road');
+      var mode = 'air';
+      var animationFrame = 0;
+      var startTime = 0;
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var nf = new Intl.NumberFormat('en-US');
+
+      locations.forEach(function (n, i) {
+        var opt1 = document.createElement('option');opt1.value=String(i);opt1.textContent=n.name;fromSelect.appendChild(opt1);
+        var opt2 = document.createElement('option');opt2.value=String(i);opt2.textContent=n.name;toSelect.appendChild(opt2);
+        var btn=document.createElement('button');
+        btn.className='hub';btn.type='button';btn.style.left=(n.x/920*100)+'%';btn.style.top=(n.y/570*100)+'%';
+        btn.setAttribute('aria-label','Set destination to '+n.name);
+        var label=document.createElement('span');label.className='hub-label'+(i===4||i===5?' reverse':'');label.textContent=n.name;
+        btn.appendChild(label);
+        btn.addEventListener('click',function(){if(Number(fromSelect.value)===i){fromSelect.value=toSelect.value;}toSelect.value=String(i);update();});
+        hubLayer.appendChild(btn);
+      });
+
+      fromSelect.value='2';toSelect.value='6';
+      function haversine(a,b) {
+        var radians=Math.PI/180;
+        var dLat=(b.lat-a.lat)*radians;
+        var dLon=(b.lon-a.lon)*radians;
+        var c=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(a.lat*radians)*Math.cos(b.lat*radians)*Math.sin(dLon/2)*Math.sin(dLon/2);
+        return 6371*2*Math.atan2(Math.sqrt(c),Math.sqrt(1-c));
+      }
+      function curvePath(a,b,deflection){
+        var dx=b.x-a.x,dy=b.y-a.y;
+        var d=Math.sqrt(dx*dx+dy*dy)||1;
+        var bend=Math.min(d*.26,75)*deflection;
+        var cx=(a.x+b.x)/2-dy/d*bend,cy=(a.y+b.y)/2+dx/d*bend;
+        return 'M'+a.x+' '+a.y+' Q'+cx.toFixed(2)+' '+cy.toFixed(2)+' '+b.x+' '+b.y;
+      }
+      function update(){
+        var fi=Number(fromSelect.value),ti=Number(toSelect.value);
+        if(fi===ti){ti=(ti+1)%locations.length;toSelect.value=String(ti);}
+        var from=locations[fi],to=locations[ti];
+        var fleet=Number(fleetControl.value),km=haversine(from,to);
+        var flight=Math.round(km/150*60+7);
+        var wait=Math.max(2,Math.round(1.7+22*Math.pow(20000/fleet,1.28)));
+        var road=Math.round(km*1.48/27*60+7);
+        var saved=Math.max(0,road-flight-wait);
+        fleetLabel.textContent=nf.format(fleet);heroFleet.textContent=nf.format(fleet);
+        fleetControl.style.setProperty('--fill', ((fleet-20000)/(250000-20000)*100).toFixed(1)+'%');
+        document.getElementById('route-from').textContent=from.name;
+        document.getElementById('route-to').textContent=to.name;
+        document.getElementById('route-distance').textContent='Approx. '+Math.round(km)+' km straight-line separation';
+        document.getElementById('time-saved').textContent=String(saved);
+        document.getElementById('flight-time').textContent=flight+' min';
+        document.getElementById('pickup-time').textContent=wait+' min';
+        document.getElementById('road-time').textContent=road+' min';
+        document.getElementById('bar-air-value').textContent=(flight+wait)+' min';
+        document.getElementById('bar-road-value').textContent=road+' min';
+        var max=Math.max(road,flight+wait,1);
+        document.getElementById('bar-road').style.width=(road/max*100)+'%';
+        document.getElementById('bar-air').style.width=((flight+wait)/max*100)+'%';
+        var a=curvePath(from,to,-.8),r=curvePath(from,to,2.1);
+        airPath.setAttribute('d',a);glowPath.setAttribute('d',a);roadPath.setAttribute('d',r);
+        [].forEach.call(hubLayer.children,function(el,i){
+          el.classList.toggle('origin',i===fi);el.classList.toggle('destination',i===ti);
+          el.setAttribute('aria-current',i===ti?'location':'false');
+        });
+        drawMode();
+        startTime=performance.now();
+      }
+      function drawMode(){
+        var isAir=mode==='air';
+        airPath.style.opacity=isAir?'1':'.13';
+        glowPath.style.opacity=isAir?'.6':'0';
+        roadPath.style.opacity=isAir?'.3':'1';
+        ship.style.opacity=isAir?'1':'0';
+        viewAir.setAttribute('aria-pressed',String(isAir));
+        viewRoad.setAttribute('aria-pressed',String(!isAir));
+      }
+      fromSelect.addEventListener('change',update);
+      toSelect.addEventListener('change',update);
+      fleetControl.addEventListener('input',update);
+      viewAir.addEventListener('click',function(){mode='air';drawMode();});
+      viewRoad.addEventListener('click',function(){mode='road';drawMode();});
+      function animate(now){
+        if(!reduceMotion && mode==='air'){
+          var length=airPath.getTotalLength();
+          if(length>0){var progress=((now-startTime)%6000)/6000;var at=airPath.getPointAtLength(progress*length);var ahead=airPath.getPointAtLength(Math.min(length,progress*length+3));var angle=Math.atan2(ahead.y-at.y,ahead.x-at.x)*180/Math.PI+90;ship.setAttribute('transform','translate('+at.x+' '+at.y+') rotate('+angle+')');}
+        }else{
+          var l=airPath.getTotalLength();if(l>0){var mid=airPath.getPointAtLength(l/2);ship.setAttribute('transform','translate('+mid.x+' '+mid.y+')');}
+        }
+        animationFrame=requestAnimationFrame(animate);
+      }
+      update();
+      if(!reduceMotion){animationFrame=requestAnimationFrame(animate);}else{var len=airPath.getTotalLength();var mid=airPath.getPointAtLength(len/2);ship.setAttribute('transform','translate('+mid.x+' '+mid.y+')');}
+      var appear=Array.prototype.slice.call(document.querySelectorAll('.appear'));
+      if('IntersectionObserver' in window && !reduceMotion){
+        var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:.09});
+        appear.forEach(function(el){observer.observe(el);});
+      }else{appear.forEach(function(el){el.classList.add('visible');});}
+    })();
+  </script>
+</body>
+</html>
